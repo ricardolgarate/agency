@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { X, ArrowRight } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { db } from '../lib/firebase';
 
 interface BANTModalProps {
   isOpen: boolean;
@@ -32,20 +33,17 @@ export default function BANTModal({ isOpen, onClose, onQualified }: BANTModalPro
     setLoading(true);
 
     try {
-      const { error } = await supabase
-        .from('leads')
-        .insert([{
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          budget: formData.budget,
-          authority: formData.authority,
-          need: formData.need,
-          timeline: formData.timeline,
-          qualified
-        }]);
-
-      if (error) throw error;
+      await addDoc(collection(db, 'leads'), {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        budget: formData.budget,
+        authority: formData.authority,
+        need: formData.need,
+        timeline: formData.timeline,
+        qualified,
+        createdAt: serverTimestamp()
+      });
 
       if (qualified) {
         onQualified();
