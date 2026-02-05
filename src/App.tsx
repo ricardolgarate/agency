@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import Header from './components/Header';
 import Hero from './components/Hero';
+import Problem from './components/Problem';
 import Benefits from './components/Benefits';
+import HowItWorks from './components/HowItWorks';
 import Proof from './components/Proof';
 import CTA from './components/CTA';
 import BANTModal from './components/BANTModal';
@@ -22,8 +25,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-900">
+      <Header onCTAClick={handleCTAClick} />
       <Hero onCTAClick={handleCTAClick} />
+      <Problem />
       <Benefits />
+      <HowItWorks />
       <Proof />
       <CTA onCTAClick={handleCTAClick} />
       <Footer />

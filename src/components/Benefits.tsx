@@ -1,74 +1,64 @@
-import { Target, TrendingUp, Clock, Shield, Sparkles, Users } from 'lucide-react';
+import { Target, Award, Clock, Sparkles, RefreshCw, Users } from 'lucide-react';
 
 export default function Benefits() {
   const benefits = [
     {
       icon: Target,
-      title: "Get More Customers",
-      description: "Professional videos that stop the scroll and turn viewers into paying customers. Your dream outcome delivered.",
+      title: "More leads from your content",
+      description: "Edits designed to stop the scroll and turn attention into action.",
       color: "blue"
     },
     {
-      icon: TrendingUp,
-      title: "Stand Out Instantly",
-      description: "Your competition is posting boring content. We make you look like the obvious choice with premium editing.",
+      icon: Award,
+      title: "A brand that looks established",
+      description: "Polished videos that make your business look bigger and more trustworthy.",
       color: "cyan"
     },
     {
       icon: Clock,
-      title: "Save 20+ Hours Per Week",
-      description: "Stop wasting time on editing. Send us your footage and get back to running your business. Zero learning curve.",
+      title: "20+ hours back every week",
+      description: "No software. No back-and-forth. No bottlenecks.",
       color: "purple"
     },
     {
       icon: Sparkles,
-      title: "Done-For-You Service",
-      description: "No software to learn, no tutorials to watch. Just send your footage and get polished videos in 48 hours.",
+      title: "Fully done-for-you",
+      description: "You send footage. We edit. You post.",
       color: "pink"
     },
     {
-      icon: Shield,
-      title: "Risk-Free Process",
-      description: "Unlimited revisions until you're thrilled. We don't stop until your videos are converting customers.",
+      icon: RefreshCw,
+      title: "Unlimited revisions",
+      description: "We keep refining until it's right — no extra fees.",
       color: "green"
     },
     {
       icon: Users,
-      title: "Built for Small Business",
-      description: "Affordable packages designed specifically for entrepreneurs and micro-businesses. No enterprise pricing.",
+      title: "Built for small teams",
+      description: "Simple pricing for businesses doing $10K–$1M/month.",
       color: "orange"
     }
   ];
 
-  const colorMap: Record<string, { bg: string; border: string; icon: string; gradient: string }> = {
-    blue: { bg: "bg-blue-500/10", border: "border-blue-500/20", icon: "text-blue-400", gradient: "from-blue-500/20 to-blue-600/5" },
-    cyan: { bg: "bg-cyan-500/10", border: "border-cyan-500/20", icon: "text-cyan-400", gradient: "from-cyan-500/20 to-cyan-600/5" },
-    purple: { bg: "bg-purple-500/10", border: "border-purple-500/20", icon: "text-purple-400", gradient: "from-purple-500/20 to-purple-600/5" },
-    pink: { bg: "bg-pink-500/10", border: "border-pink-500/20", icon: "text-pink-400", gradient: "from-pink-500/20 to-pink-600/5" },
-    green: { bg: "bg-green-500/10", border: "border-green-500/20", icon: "text-green-400", gradient: "from-green-500/20 to-green-600/5" },
-    orange: { bg: "bg-orange-500/10", border: "border-orange-500/20", icon: "text-orange-400", gradient: "from-orange-500/20 to-orange-600/5" }
+  const colorMap: Record<string, { bg: string; border: string; icon: string }> = {
+    blue: { bg: "bg-blue-500/10", border: "border-blue-500/20", icon: "text-blue-400" },
+    cyan: { bg: "bg-cyan-500/10", border: "border-cyan-500/20", icon: "text-cyan-400" },
+    purple: { bg: "bg-purple-500/10", border: "border-purple-500/20", icon: "text-purple-400" },
+    pink: { bg: "bg-pink-500/10", border: "border-pink-500/20", icon: "text-pink-400" },
+    green: { bg: "bg-green-500/10", border: "border-green-500/20", icon: "text-green-400" },
+    orange: { bg: "bg-orange-500/10", border: "border-orange-500/20", icon: "text-orange-400" }
   };
 
   return (
-    <section className="py-24 bg-slate-900">
+    <section id="benefits" className="py-16 sm:py-24 bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 text-blue-400 text-sm font-medium mb-6">
-            <Sparkles className="w-4 h-4" />
-            <span>Why Choose Us</span>
-          </div>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-            Everything You Need to
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-              Dominate Your Market
-            </span>
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
+            What you actually get
           </h2>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
-            We handle the tedious editing work so you can focus on what you do best—growing your business and serving your customers.
-          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {benefits.map((benefit, index) => {
             const colors = colorMap[benefit.color];
             const Icon = benefit.icon;
@@ -76,15 +66,15 @@ export default function Benefits() {
             return (
               <div
                 key={index}
-                className={`group relative bg-gradient-to-br ${colors.gradient} backdrop-blur-sm rounded-xl p-8 border ${colors.border} hover:border-${benefit.color}-500/40 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-${benefit.color}-500/10`}
+                className={`group relative bg-slate-800/30 rounded-2xl p-6 sm:p-8 border ${colors.border} hover:border-opacity-50 transition-all duration-300`}
               >
-                <div className={`${colors.bg} w-14 h-14 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                  <Icon className={`w-7 h-7 ${colors.icon}`} />
+                <div className={`${colors.bg} w-12 h-12 rounded-xl flex items-center justify-center mb-5`}>
+                  <Icon className={`w-6 h-6 ${colors.icon}`} />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
                   {benefit.title}
                 </h3>
-                <p className="text-slate-400 leading-relaxed">
+                <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
                   {benefit.description}
                 </p>
               </div>

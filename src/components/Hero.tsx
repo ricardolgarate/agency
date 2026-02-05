@@ -1,4 +1,4 @@
-import { Play, TrendingUp, Clock, Zap } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface HeroProps {
   onCTAClick: () => void;
@@ -6,100 +6,55 @@ interface HeroProps {
 
 export default function Hero({ onCTAClick }: HeroProps) {
   return (
-    <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE2YzAtMi4yMSAxLjc5LTQgNC00czQgMS43OSA0IDQtMS43OSA0LTQgNC00LTEuNzktNC00em0wIDI0YzAtMi4yMSAxLjc5LTQgNC00czQgMS43OSA0IDQtMS43OSA0LTQgNC00LTEuNzktNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-40"></div>
+    <section id="top" className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-800 text-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32 relative z-10">
+        <div className="text-center max-w-4xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-[1.15] mb-6 sm:mb-8">
+            Video editing for businesses that want
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400"> more leads</span>, not more work
+          </h1>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 text-blue-400 text-sm font-medium">
-              <Zap className="w-4 h-4" />
-              <span>Transform Your Content, Transform Your Business</span>
-            </div>
+          <p className="text-lg sm:text-xl text-slate-300 leading-relaxed mb-4 max-w-3xl mx-auto">
+            If video is how you grow — we handle the editing so you can focus on running your business.
+          </p>
 
-            <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-              Stop Losing Customers to
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                Boring Videos
-              </span>
-            </h1>
+          <p className="text-base sm:text-lg text-slate-400 leading-relaxed mb-8 sm:mb-10 max-w-3xl mx-auto">
+            We turn raw footage into scroll-stopping content you can post consistently, without hiring, managing, or learning editing software.
+          </p>
 
-            <p className="text-xl text-slate-300 leading-relaxed">
-              We turn your raw footage into scroll-stopping content that attracts customers, builds trust, and drives sales—without you spending hours learning editing software.
-            </p>
-
-            <div className="grid sm:grid-cols-3 gap-6 pt-4">
-              <div className="flex items-start gap-3">
-                <div className="bg-blue-500/10 p-2 rounded-lg">
-                  <TrendingUp className="w-5 h-5 text-blue-400" />
-                </div>
-                <div>
-                  <div className="font-semibold text-lg">3x Engagement</div>
-                  <div className="text-sm text-slate-400">Average increase</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-cyan-500/10 p-2 rounded-lg">
-                  <Clock className="w-5 h-5 text-cyan-400" />
-                </div>
-                <div>
-                  <div className="font-semibold text-lg">48-Hour</div>
-                  <div className="text-sm text-slate-400">Turnaround</div>
-                </div>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-purple-500/10 p-2 rounded-lg">
-                  <Play className="w-5 h-5 text-purple-400" />
-                </div>
-                <div>
-                  <div className="font-semibold text-lg">100%</div>
-                  <div className="text-sm text-slate-400">Satisfaction</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button
-                onClick={onCTAClick}
-                className="group bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-xl hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105"
-              >
-                Get Your Free Strategy Session
-                <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
-              </button>
-              <button
-                onClick={() => document.getElementById('proof')?.scrollIntoView({ behavior: 'smooth' })}
-                className="border border-slate-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-slate-800 transition-all duration-300"
-              >
-                See Our Work
-              </button>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 sm:mb-20">
+            <button
+              onClick={onCTAClick}
+              className="group bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 inline-flex items-center justify-center gap-2"
+            >
+              Book a free 15-min call
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button
+              onClick={() => document.getElementById('proof')?.scrollIntoView({ behavior: 'smooth' })}
+              className="border border-slate-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-slate-800/50 transition-all duration-300"
+            >
+              See examples
+            </button>
           </div>
 
-          <div className="relative">
-            <div className="relative bg-gradient-to-br from-blue-500/20 to-cyan-500/20 backdrop-blur-sm rounded-2xl p-8 border border-slate-700">
-              <div className="aspect-video bg-slate-800 rounded-lg flex items-center justify-center relative overflow-hidden group cursor-pointer">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20"></div>
-                <Play className="w-20 h-20 text-white relative z-10 group-hover:scale-110 transition-transform" />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all"></div>
+          {/* Trust strip */}
+          <div className="border-t border-slate-700/50 pt-10">
+            <p className="text-slate-500 text-sm mb-6">Why businesses trust VideoEdits</p>
+            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-slate-300">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-blue-400 rounded-full"></span>
+                <span className="text-sm sm:text-base">3x more engagement on average</span>
               </div>
-              <div className="mt-6 space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold">
-                    JD
-                  </div>
-                  <div>
-                    <div className="font-semibold">Jessica Davis</div>
-                    <div className="text-sm text-slate-400">Fitness Coach</div>
-                  </div>
-                </div>
-                <p className="text-slate-300 italic">
-                  "My client inquiries tripled after using their edited videos. Worth every penny!"
-                </p>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span>
+                <span className="text-sm sm:text-base">48h turnaround</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-purple-400 rounded-full"></span>
+                <span className="text-sm sm:text-base">500+ videos edited for real businesses</span>
               </div>
             </div>
-
-            <div className="absolute -top-4 -right-4 w-72 h-72 bg-blue-500/30 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-4 -left-4 w-72 h-72 bg-cyan-500/30 rounded-full blur-3xl"></div>
           </div>
         </div>
       </div>

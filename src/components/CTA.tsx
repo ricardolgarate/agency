@@ -1,4 +1,4 @@
-import { Rocket, CheckCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 
 interface CTAProps {
   onCTAClick: () => void;
@@ -6,48 +6,47 @@ interface CTAProps {
 
 export default function CTA({ onCTAClick }: CTAProps) {
   return (
-    <section className="py-24 bg-gradient-to-br from-blue-600 via-cyan-600 to-blue-700 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE2YzAtMi4yMSAxLjc5LTQgNC00czQgMS43OSA0IDQtMS43OSA0LTQgNC00LTEuNzktNC00em0wIDI0YzAtMi4yMSAxLjc5LTQgNC00czQgMS43OSA0IDQtMS43OSA0LTQgNC00LTEuNzktNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-40"></div>
+    <section id="cta" className="py-16 sm:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-700 relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-300 rounded-full blur-3xl"></div>
+      </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-white text-sm font-medium mb-6">
-          <Rocket className="w-4 h-4" />
-          <span>Limited Availability</span>
-        </div>
-
-        <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6">
-          Ready to Transform Your Video Content?
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-6 leading-tight">
+          Ready to scale your content without scaling your workload?
         </h2>
 
-        <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-          Book a free strategy session and we'll show you exactly how we can help you attract more customers, save time, and stand out from your competition.
+        <p className="text-lg sm:text-xl text-blue-100 mb-8 max-w-2xl mx-auto leading-relaxed">
+          Book a free call. We'll review your content and show you exactly how to post more and grow faster.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
-          <div className="flex items-center gap-2 text-white">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-10">
+          <div className="flex items-center gap-2 text-white/90">
             <CheckCircle className="w-5 h-5" />
-            <span>No obligations</span>
+            <span>Free 15-minute call</span>
           </div>
-          <div className="flex items-center gap-2 text-white">
+          <div className="flex items-center gap-2 text-white/90">
             <CheckCircle className="w-5 h-5" />
-            <span>Free consultation</span>
+            <span>No commitment</span>
           </div>
-          <div className="flex items-center gap-2 text-white">
+          <div className="flex items-center gap-2 text-white/90">
             <CheckCircle className="w-5 h-5" />
-            <span>Instant clarity</span>
+            <span>Custom plan</span>
           </div>
         </div>
 
         <button
           onClick={onCTAClick}
-          className="group bg-white text-blue-600 px-10 py-5 rounded-lg font-bold text-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2"
+          className="group bg-white text-blue-600 px-10 py-5 rounded-xl font-bold text-lg sm:text-xl hover:shadow-2xl hover:shadow-black/20 transition-all duration-300 inline-flex items-center gap-3"
         >
-          Book Your Free Strategy Session
-          <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
+          Book your free call
+          <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </button>
 
-        <p className="text-blue-100 text-sm mt-6">
-          Only 5 spots available this week
+        <p className="text-blue-200/80 text-sm mt-6">
+          We only take 5 new clients per month
         </p>
       </div>
     </section>
