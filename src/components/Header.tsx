@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Video, Menu, X } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
 
 interface HeaderProps {
   onCTAClick: () => void;
@@ -7,32 +7,46 @@ interface HeaderProps {
 
 export default function Header({ onCTAClick }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const navLinks = [
     { href: '#benefits', label: 'Benefits' },
+    { href: '#how-it-works', label: 'Process' },
     { href: '#proof', label: 'Portfolio' },
-    { href: '#cta', label: 'Pricing' },
   ];
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-800/50 bg-slate-900/80 backdrop-blur-lg">
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-slate-950/90 backdrop-blur-xl shadow-lg shadow-black/10 border-b border-white/5'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-18">
+        <div className="flex items-center justify-between h-16 sm:h-[72px]">
           {/* Logo */}
-          <a href="#top" className="flex items-center gap-2.5 text-white">
-            <span className="bg-gradient-to-br from-blue-500 to-cyan-500 p-2 rounded-lg">
-              <Video className="w-5 h-5 text-white" />
-            </span>
-            <span className="font-bold text-lg">VideoEdits</span>
+          <a href="#top" className="flex items-center shrink-0">
+            <img
+              src="/logo.png"
+              alt="Carter Studios"
+              className="h-9 sm:h-11 w-auto"
+            />
           </a>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-slate-300 hover:text-white transition-colors text-sm font-medium"
+                className="text-slate-400 hover:text-white px-4 py-2 rounded-lg hover:bg-white/5 transition-all text-sm font-medium"
               >
                 {link.label}
               </a>
@@ -43,7 +57,7 @@ export default function Header({ onCTAClick }: HeaderProps) {
           <div className="hidden md:block">
             <button
               onClick={onCTAClick}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-colors"
+              className="bg-blue-500 hover:bg-blue-400 text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all hover:shadow-lg hover:shadow-blue-500/25"
             >
               Book a Call
             </button>
@@ -52,22 +66,26 @@ export default function Header({ onCTAClick }: HeaderProps) {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-slate-300 hover:text-white p-2"
+            className="md:hidden text-slate-400 hover:text-white p-2 rounded-lg hover:bg-white/5 transition-colors"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
         {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-slate-800/50">
-            <nav className="flex flex-col gap-2">
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ${
+            mobileMenuOpen ? 'max-h-64 pb-4' : 'max-h-0'
+          }`}
+        >
+          <div className="border-t border-white/5 pt-3">
+            <nav className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-slate-300 hover:text-white transition-colors py-2 px-2 rounded-lg hover:bg-slate-800/50"
+                  className="text-slate-400 hover:text-white transition-colors py-2.5 px-3 rounded-lg hover:bg-white/5 text-sm"
                 >
                   {link.label}
                 </a>
@@ -77,13 +95,13 @@ export default function Header({ onCTAClick }: HeaderProps) {
                   setMobileMenuOpen(false);
                   onCTAClick();
                 }}
-                className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-lg text-sm font-semibold transition-colors mt-2"
+                className="bg-blue-500 hover:bg-blue-400 text-white px-5 py-3 rounded-lg text-sm font-semibold transition-all mt-2"
               >
                 Book a Call
               </button>
             </nav>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );

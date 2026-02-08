@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, ArrowRight } from 'lucide-react';
+import { X, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
@@ -48,12 +48,12 @@ export default function BANTModal({ isOpen, onClose, onQualified }: BANTModalPro
       if (qualified) {
         onQualified();
       } else {
-        alert("Thank you for your interest! Based on your responses, we'll send you some resources via email. When you're ready to move forward, feel free to reach out!");
+        alert("Thanks for your interest! We'll send you some resources via email. Reach out when you're ready to move forward!");
         onClose();
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('There was an error submitting your information. Please try again.');
+      alert('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -65,80 +65,89 @@ export default function BANTModal({ isOpen, onClose, onQualified }: BANTModalPro
 
   if (!isOpen) return null;
 
+  const inputClasses = "w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3.5 text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 outline-none transition-all text-sm";
+  const labelClasses = "block text-white font-medium text-sm mb-2";
+  const selectClasses = "w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3.5 text-white focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 outline-none transition-all text-sm appearance-none";
+
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-slate-900 rounded-2xl max-w-2xl w-full border border-slate-700 shadow-2xl my-8">
-        <div className="flex items-center justify-between p-6 border-b border-slate-700">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
+      <div
+        className="relative bg-slate-950 rounded-2xl max-w-lg w-full border border-white/[0.08] shadow-2xl shadow-black/50 my-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Progress bar */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-white/[0.04] rounded-t-2xl overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-blue-500 to-cyan-500 transition-all duration-500 ease-out"
+            style={{ width: step === 1 ? '50%' : '100%' }}
+          />
+        </div>
+
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 pb-0">
           <div>
-            <h3 className="text-2xl font-bold text-white">Free Strategy Session</h3>
-            <p className="text-slate-400 text-sm mt-1">Step {step} of 2</p>
+            <h3 className="text-xl font-bold text-white">Free Strategy Session</h3>
+            <p className="text-slate-500 text-sm mt-1">Step {step} of 2</p>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white transition-colors"
+            className="text-slate-500 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
+        {/* Form */}
         <form onSubmit={handleSubmit} className="p-6">
           {step === 1 && (
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div>
-                <label className="block text-white font-semibold mb-2">
-                  What's your name?
-                </label>
+                <label className={labelClasses}>Your name</label>
                 <input
                   type="text"
                   required
                   value={formData.name}
                   onChange={(e) => updateField('name', e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className={inputClasses}
                   placeholder="John Smith"
                 />
               </div>
 
               <div>
-                <label className="block text-white font-semibold mb-2">
-                  What's your email?
-                </label>
+                <label className={labelClasses}>Email</label>
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => updateField('email', e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className={inputClasses}
                   placeholder="john@business.com"
                 />
               </div>
 
               <div>
-                <label className="block text-white font-semibold mb-2">
-                  What's your business name?
-                </label>
+                <label className={labelClasses}>Business name</label>
                 <input
                   type="text"
                   value={formData.company}
                   onChange={(e) => updateField('company', e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                  placeholder="Smith Fitness Coaching"
+                  className={inputClasses}
+                  placeholder="Acme Fitness"
                 />
               </div>
 
               <div>
-                <label className="block text-white font-semibold mb-2">
-                  What's your monthly budget for video editing?
-                </label>
+                <label className={labelClasses}>Monthly budget for video editing</label>
                 <select
                   required
                   value={formData.budget}
                   onChange={(e) => updateField('budget', e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className={selectClasses}
                 >
-                  <option value="">Select your budget</option>
+                  <option value="">Select a range</option>
                   <option value="under-500">Under $500/month</option>
-                  <option value="500-1000">$500 - $1,000/month</option>
-                  <option value="1000-2000">$1,000 - $2,000/month</option>
+                  <option value="500-1000">$500 – $1,000/month</option>
+                  <option value="1000-2000">$1,000 – $2,000/month</option>
                   <option value="2000-plus">$2,000+/month</option>
                 </select>
               </div>
@@ -147,85 +156,87 @@ export default function BANTModal({ isOpen, onClose, onQualified }: BANTModalPro
                 type="button"
                 onClick={() => setStep(2)}
                 disabled={!formData.name || !formData.email || !formData.budget}
-                className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-4 rounded-lg font-semibold hover:shadow-xl hover:shadow-blue-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-blue-500 hover:bg-blue-400 text-white px-6 py-4 rounded-xl font-semibold transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
               >
                 Continue
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           )}
 
           {step === 2 && (
-            <div className="space-y-6">
+            <div className="space-y-5">
               <div>
-                <label className="block text-white font-semibold mb-2">
-                  Are you the decision-maker for video content?
-                </label>
+                <label className={labelClasses}>Are you the decision-maker?</label>
                 <select
                   required
                   value={formData.authority}
                   onChange={(e) => updateField('authority', e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className={selectClasses}
                 >
-                  <option value="">Select option</option>
-                  <option value="yes">Yes, I make the final decision</option>
-                  <option value="shared">Shared decision with partner/team</option>
-                  <option value="need-approval">I need approval from someone else</option>
+                  <option value="">Select one</option>
+                  <option value="yes">Yes, I decide</option>
+                  <option value="shared">Shared with partner/team</option>
+                  <option value="need-approval">I need someone else's approval</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-white font-semibold mb-2">
-                  What type of videos do you need?
-                </label>
+                <label className={labelClasses}>What type of videos do you need?</label>
                 <select
                   required
                   value={formData.need}
                   onChange={(e) => updateField('need', e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className={selectClasses}
                 >
                   <option value="">Select type</option>
-                  <option value="social-media">Social media content (Reels, TikTok, etc.)</option>
+                  <option value="social-media">Social media (Reels, TikTok, Shorts)</option>
                   <option value="promotional">Promotional videos</option>
-                  <option value="educational">Educational/Tutorial videos</option>
-                  <option value="product">Product demonstrations</option>
+                  <option value="educational">Tutorials / Educational</option>
+                  <option value="product">Product demos</option>
                   <option value="testimonials">Customer testimonials</option>
                   <option value="multiple">Multiple types</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-white font-semibold mb-2">
-                  When do you need to get started?
-                </label>
+                <label className={labelClasses}>When do you want to start?</label>
                 <select
                   required
                   value={formData.timeline}
                   onChange={(e) => updateField('timeline', e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className={selectClasses}
                 >
                   <option value="">Select timeline</option>
-                  <option value="immediately">Immediately (ASAP)</option>
-                  <option value="this-month">Within this month</option>
+                  <option value="immediately">ASAP</option>
+                  <option value="this-month">This month</option>
                   <option value="next-month">Next month</option>
-                  <option value="just-exploring">Just exploring options</option>
+                  <option value="just-exploring">Just exploring</option>
                 </select>
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex gap-3 mt-2">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="flex-1 bg-slate-800 text-white px-6 py-4 rounded-lg font-semibold hover:bg-slate-700 transition-all duration-300"
+                  className="flex-1 bg-white/[0.04] border border-white/[0.08] text-white px-6 py-4 rounded-xl font-semibold hover:bg-white/[0.08] transition-all flex items-center justify-center gap-2"
                 >
+                  <ArrowLeft className="w-4 h-4" />
                   Back
                 </button>
                 <button
                   type="submit"
                   disabled={loading || !formData.authority || !formData.need || !formData.timeline}
-                  className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-4 rounded-lg font-semibold hover:shadow-xl hover:shadow-blue-500/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-blue-500 hover:bg-blue-400 text-white px-6 py-4 rounded-xl font-semibold transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  {loading ? 'Submitting...' : 'Submit'}
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    'Submit'
+                  )}
                 </button>
               </div>
             </div>

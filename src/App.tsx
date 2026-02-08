@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Problem from './components/Problem';
@@ -9,8 +10,11 @@ import CTA from './components/CTA';
 import BANTModal from './components/BANTModal';
 import CalendlyEmbed from './components/CalendlyEmbed';
 import Footer from './components/Footer';
+import AdminLogin from './components/admin/AdminLogin';
+import AdminDashboard from './components/admin/AdminDashboard';
+import PrivateRoute from './components/admin/PrivateRoute';
 
-function App() {
+function LandingPage() {
   const [showBANTModal, setShowBANTModal] = useState(false);
   const [showCalendly, setShowCalendly] = useState(false);
 
@@ -24,7 +28,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900">
+    <div className="min-h-screen bg-slate-950">
       <Header onCTAClick={handleCTAClick} />
       <Hero onCTAClick={handleCTAClick} />
       <Problem />
@@ -45,6 +49,25 @@ function App() {
         onClose={() => setShowCalendly(false)}
       />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route
+          path="/admin/dashboard"
+          element={
+            <PrivateRoute>
+              <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
