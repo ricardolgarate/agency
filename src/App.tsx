@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import AdminLogin from './components/admin/AdminLogin';
 import AdminDashboard from './components/admin/AdminDashboard';
 import PrivateRoute from './components/admin/PrivateRoute';
+import FitnessApp from './components/fitness/FitnessApp';
 
 function LandingPage() {
   const [showBANTModal, setShowBANTModal] = useState(false);
@@ -63,6 +64,14 @@ function App() {
           element={
             <PrivateRoute>
               <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/fitness/*"
+          element={
+            <PrivateRoute>
+              <FitnessApp />
             </PrivateRoute>
           }
         />
